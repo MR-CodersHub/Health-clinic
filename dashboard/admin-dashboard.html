@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - MediCare</title>
+    <link rel="icon" href="../assets/images/favicon.ico.png">
+    <link href="../src/css/output.css" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        medical: {
+                            DEFAULT: '#10B981',
+                            dark: '#047857',
+                            light: '#D1FAE5',
+                            deep: '#064E3B',
+                        },
+                        neutral: {
+                            light: '#F9FAFB',
+                            DEFAULT: '#E5E7EB',
+                            dark: '#374151',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+
+<body class="bg-neutral-light font-sans text-gray-700 antialiased">
+
+    <div class="flex h-screen overflow-hidden">
+
+        <!-- Sidebar -->
+        <aside class="hidden md:flex flex-col w-64 bg-gray-900 text-gray-300 border-r border-gray-800">
+            <div class="p-6 border-b border-gray-800 flex items-center gap-2">
+                <div
+                    class="w-8 h-8 bg-medical rounded-full flex items-center justify-center text-white font-bold text-lg">
+                    +</div>
+                <span class="text-xl font-bold text-white">MediCare Admin</span>
+            </div>
+
+            <nav class="flex-1 p-4 space-y-1">
+                <a href="#" class="flex items-center gap-3 px-4 py-3 bg-gray-800 text-white font-medium rounded-xl">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z">
+                        </path>
+                    </svg>
+                    Overview
+                </a>
+                <a href="../index.html"
+                    class="flex items-center gap-3 px-4 py-3 hover:bg-gray-800 hover:text-white font-medium rounded-xl transition">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
+                    </svg>
+                    View Site
+                </a>
+            </nav>
+
+            <div class="p-4 border-t border-gray-800">
+                <button onclick="Auth.logout()"
+                    class="flex items-center gap-3 w-full px-4 py-3 text-red-400 hover:bg-gray-800 font-medium rounded-xl transition">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1">
+                        </path>
+                    </svg>
+                    Logout
+                </button>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="flex-1 flex flex-col h-full overflow-hidden bg-neutral-light">
+            <!-- Mobile Header -->
+            <header class="md:hidden bg-gray-900 text-white p-4 flex items-center justify-between">
+                <span class="font-bold text-lg">Admin Panel</span>
+                <button onclick="Auth.logout()" class="text-sm text-red-400 font-medium">Logout</button>
+            </header>
+
+            <div class="flex-1 overflow-y-auto p-4 md:p-8">
+                <div class="max-w-6xl mx-auto">
+                    <h1 class="text-3xl font-bold text-gray-900 mb-8">Dashboard Overview</h1>
+
+                    <!-- Stats Cards -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+                        <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
+                            <div class="flex items-center justify-between mb-4">
+                                <h3 class="text-gray-500 font-medium">Total Users</h3>
+                                <div class="bg-blue-100 text-blue-600 p-2 rounded-lg">
+                                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z">
+                                        </path>
+                                    </svg>
+                                </div>
+                            </div>
+                            <p class="text-3xl font-bold text-gray-900" id="total-users">0</p>
+                        </div>
+
+                        <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
+                            <div class="flex items-center justify-between mb-4">
+                                <h3 class="text-gray-500 font-medium">Appointments</h3>
+                                <div class="bg-green-100 text-green-600 p-2 rounded-lg">
+                                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z">
+                                        </path>
+                                    </svg>
+                                </div>
+                            </div>
+                            <p class="text-3xl font-bold text-gray-900" id="total-appointments">0</p>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                        <!-- Appointments Table -->
+                        <div
+                            class="lg:col-span-2 bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
+                            <div class="p-6 border-b border-gray-100">
+                                <h3 class="font-bold text-lg text-gray-900">Recent Appointments</h3>
+                            </div>
+                            <div class="overflow-x-auto">
+                                <table class="w-full">
+                                    <thead class="bg-gray-50 text-left">
+                                        <tr>
+                                            <th
+                                                class="px-6 py-4 text-xs font-semibold text-gray-500 uppercase tracking-wider">
+                                                Patient</th>
+                                            <th
+                                                class="px-6 py-4 text-xs font-semibold text-gray-500 uppercase tracking-wider">
+                                                Service</th>
+                                            <th
+                                                class="px-6 py-4 text-xs font-semibold text-gray-500 uppercase tracking-wider">
+                                                Date</th>
+                                            <th
+                                                class="px-6 py-4 text-xs font-semibold text-gray-500 uppercase tracking-wider">
+                                                Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="divide-y divide-gray-100" id="appointments-table-body">
+                                        <!-- Populated via JS -->
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <!-- Recent Users List -->
+                        <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
+                            <div class="p-6 border-b border-gray-100">
+                                <h3 class="font-bold text-lg text-gray-900">New Users</h3>
+                            </div>
+                            <div class="p-4 space-y-2" id="recent-users-list">
+                                <!-- Populated via JS -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Scripts -->
+    <script src="../src/js/state.js"></script>
+    <script src="../src/js/auth.js"></script>
+    <script src="../src/js/dashboard.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            Dashboard.initAdmin();
+        });
+    </script>
+</body>
+
+</html>

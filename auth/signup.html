@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up - MediCare</title>
+    <link rel="icon" href="../assets/images/favicon.ico.png">
+    <link href="../src/css/output.css" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        medical: {
+                            DEFAULT: '#10B981',
+                            dark: '#047857',
+                            light: '#D1FAE5',
+                            deep: '#064E3B',
+                        },
+                        neutral: {
+                            light: '#F9FAFB',
+                            DEFAULT: '#E5E7EB',
+                            dark: '#374151',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+
+<body
+    class="bg-neutral-light font-sans text-gray-700 antialiased min-h-screen flex flex-col items-center justify-center py-10">
+
+    <!-- Brand Logo -->
+    <a href="../index.html"
+        class="flex items-center gap-2 mb-8 justify-center group transition-transform hover:scale-105 duration-200">
+        <div
+            class="w-10 h-10 bg-medical rounded-full flex items-center justify-center text-white font-bold text-xl shadow-md">
+            <img src="../assets/images/favicon.ico.png" alt="brand-logo" class="w-6 h-6">
+        </div>
+        <span class="text-3xl font-bold text-gray-800 tracking-tight">Medi<span class="text-medical">Care</span></span>
+    </a>
+
+    <div class="w-full max-w-lg bg-white rounded-2xl shadow-xl overflow-hidden">
+        <div class="bg-medical-deep p-8 text-center text-white">
+            <h1 class="text-2xl font-bold mb-2">Create Account</h1>
+            <p class="opacity-80">Join MediCare for a healthier tomorrow.</p>
+        </div>
+
+        <div class="p-8">
+            <form id="signup-form" class="space-y-6">
+                <!-- Error/Success Message Container -->
+                <div id="msg-box" class="hidden p-3 rounded-lg text-sm text-center"></div>
+
+                <div>
+                    <label class="block text-gray-700 font-medium mb-2">Full Name</label>
+                    <input type="text" id="name"
+                        class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-medical focus:ring-2 focus:ring-medical-light outline-none transition"
+                        placeholder="John Doe" required>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                        <label class="block text-gray-700 font-medium mb-2">Email</label>
+                        <input type="email" id="email"
+                            class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-medical focus:ring-2 focus:ring-medical-light outline-none transition"
+                            placeholder="john@example.com" required>
+                    </div>
+                    <div>
+                        <label class="block text-gray-700 font-medium mb-2">Phone</label>
+                        <input type="tel" id="phone"
+                            class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-medical focus:ring-2 focus:ring-medical-light outline-none transition"
+                            placeholder="(555) 123-4567" required>
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-gray-700 font-medium mb-2">Password</label>
+                    <input type="password" id="password"
+                        class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-medical focus:ring-2 focus:ring-medical-light outline-none transition"
+                        placeholder="Create a strong password" required>
+                </div>
+
+                <div class="flex items-start gap-2 text-sm text-gray-500">
+                    <input type="checkbox" required class="mt-1 text-medical focus:ring-medical rounded">
+                    <span>I agree to the <a href="#" class="text-medical font-medium hover:underline">Terms of
+                            Service</a> and <a href="#" class="text-medical font-medium hover:underline">Privacy
+                            Policy</a>.</span>
+                </div>
+
+                <button type="submit"
+                    class="w-full bg-medical text-white font-bold py-3.5 rounded-xl shadow-lg hover:bg-medical-dark transition transform hover:-translate-y-1">
+                    Create Account
+                </button>
+            </form>
+
+            <div class="mt-8 text-center text-sm text-gray-500">
+                Already have an account? <a href="login.html" class="text-medical font-bold hover:underline">Log in</a>
+            </div>
+            <div class="mt-4 text-center">
+                <a href="../index.html" class="text-gray-400 hover:text-gray-600 text-xs text-center">&larr; Back to
+                    Home</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="../src/js/state.js"></script>
+    <script src="../src/js/auth.js"></script>
+    <script>
+        document.getElementById('signup-form').addEventListener('submit', (e) => {
+            e.preventDefault();
+
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const phone = document.getElementById('phone').value;
+            const password = document.getElementById('password').value;
+            const role = document.getElementById('role').value;
+            const msgBox = document.getElementById('msg-box');
+
+            const result = Auth.register(name, email, phone, password, role);
+
+            msgBox.classList.remove('hidden', 'bg-red-50', 'text-red-600', 'bg-green-50', 'text-green-600');
+
+            if (result.success) {
+                msgBox.classList.add('bg-green-50', 'text-green-600');
+                msgBox.textContent = result.message + " Redirecting to login...";
+
+                setTimeout(() => {
+                    window.location.href = 'login.html';
+                }, 1500);
+            } else {
+                msgBox.classList.add('bg-red-50', 'text-red-600');
+                msgBox.textContent = result.message;
+            }
+        });
+    </script>
+</body>
+
+</html>

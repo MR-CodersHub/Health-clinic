@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Page Not Found - Health Clinic</title>
+    <link rel="icon" href="./assets/images/favicon.ico.png">
+    <link href="./src/css/output.css" rel="stylesheet">
+    <!-- Fallback to CDN if local build fails during dev -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        medical: {
+                            DEFAULT: '#10B981',
+                            dark: '#047857',
+                            light: '#D1FAE5',
+                            deep: '#064E3B',
+                        },
+                        neutral: {
+                            light: '#F9FAFB',
+                            DEFAULT: '#E5E7EB',
+                            dark: '#374151',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    borderRadius: {
+                        'xl': '1rem',
+                        '2xl': '1.5rem',
+                    },
+                    boxShadow: {
+                        'soft': '0 4px 6px -1px rgba(16, 185, 129, 0.1), 0 2px 4px -1px rgba(16, 185, 129, 0.06)',
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+
+<body class="font-sans text-gray-700 bg-neutral-light antialiased flex flex-col min-h-screen">
+
+    <!-- Main 404 Content -->
+    <main class="flex-grow flex items-center justify-center py-16 px-4">
+        <div class="text-center max-w-2xl mx-auto">
+            <div class="mb-8 relative flex justify-center">
+                <!-- Abstract Background Blobs -->
+                <div
+                    class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-medical-light rounded-full blur-3xl -z-10 opacity-60">
+                </div>
+                <img src="./assets/images/error_404.png" alt="404 Illustration"
+                    class="w-full max-w-md h-auto drop-shadow-sm rounded-2xl mx-auto">
+            </div>
+
+            <h1 class="text-4xl md:text-6xl font-bold text-gray-900 mb-4">Ooops!</h1>
+            <p class="text-xl text-gray-600 mb-8 max-w-lg mx-auto leading-relaxed">
+                The page you are looking for doesn't exist or has been moved. Don't worry, our team is always ready to
+                help you find your way back.
+            </p>
+
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                <a href="index.html"
+                    class="bg-medical text-white px-8 py-3.5 rounded-full font-semibold hover:bg-medical-dark shadow-lg hover:shadow-xl transition transform hover:-translate-y-1">
+                    Back to Home
+                </a>
+                <a href="contact.html"
+                    class="border-2 border-gray-300 text-gray-600 hover:border-medical hover:text-medical px-8 py-3.5 rounded-full font-semibold transition bg-white">
+                    Contact Support
+                </a>
+            </div>
+        </div>
+    </main>
+    <!-- Footer -->
+    <footer class="bg-medical-deep text-white py-8 mt-auto">
+        <div class="container mx-auto px-4 text-center">
+            <p class="text-gray-300">Need urgent assistance?</p>
+            <p class="text-lg font-bold text-white mt-1 mb-4">Call us at +1 (555) 000-1234</p>
+            <p class="text-gray-400 text-sm">© Developed by MR CodersHub. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Automatic redirect to home after 3 seconds
+        let countdown = 3;
+        const countdownDisplay = document.createElement('p');
+        countdownDisplay.className = "text-gray-500 mt-4";
+        countdownDisplay.innerHTML = `Redirecting to home in <span id="timer">${countdown}</span> seconds...`;
+        document.querySelector('h1').parentNode.appendChild(countdownDisplay);
+
+        const timerSpan = document.getElementById('timer');
+
+        const interval = setInterval(() => {
+            countdown--;
+            if (timerSpan) timerSpan.innerText = countdown;
+            if (countdown <= 0) {
+                clearInterval(interval);
+                window.location.href = '/index.html';
+            }
+        }, 1000);
+
+        // Mobile menu toggle
+        const btn = document.getElementById('mobile-menu-btn');
+        const menu = document.getElementById('mobile-menu');
+
+        if (btn && menu) {
+            btn.addEventListener('click', () => {
+                menu.classList.toggle('hidden');
+            });
+        }
+    </script>
+</body>
+
+</html>
